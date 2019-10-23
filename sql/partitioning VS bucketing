@@ -9,7 +9,9 @@ structure like
 .../employees/country=ABC/DEPT=XYZ.
 If query limits for employee from country=ABC, it will only scan the contents of one directory country=ABC.
 This can dramatically improve query performance, but only if the partitioning scheme reflects common filtering.
-Partitioning feature is very useful in Hive, however, a design that creates too many partitions may optimize some queries, but be detrimental for other important queries. Other drawback is having too many partitions is the large number of Hadoop files and directories that are created unnecessarily and overhead to NameNode since it must keep all metadata for the file system in memory.
+Partitioning feature is very useful in Hive, however, a design that creates too many partitions may optimize some queries,
+but be detrimental for other important queries. Other drawback is having too many partitions is the large number of Hadoop files
+and directories that are created unnecessarily and overhead to NameNode since it must keep all metadata for the file system in memory.
 
 Bucketing
 
