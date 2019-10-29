@@ -1,0 +1,43 @@
+HCatalog supports reading and writing files in any format for which a Hive SerDe (serializer-deserializer) can be written.
+By default, HCatalog supports RCFile, CSV, JSON, and SequenceFile formats. 
+To use a custom format, you must provide the InputFormat, OutputFormat, and SerDe.
+
+HCatalog is built on top of the Hive metastore and incorporates components from the Hive DDL.
+HCatalog provides read and write interfaces for Pig and MapReduce and uses Hive’s command line interface for issuing data definition
+and metadata exploration commands.
+It also presents a REST interface to allow external tools access to Hive DDL (Data Definition Language) operations,
+such as “create table” and “describe table”.
+HCatalog presents a relational view of data. Data is stored in tables and these tables can be placed into databases.
+Tables can also be partitioned on one or more keys. For a given value of a key (or set of keys) there will be one partition that
+contains all rows with that value (or set of values).
+
+
+Basically, HCatalog provides a consistent interface between Apache Hive, Apache Pig, and MapReduce. Since it ships with Hive,
+you could consider it an extension of Hive.
+
+Why this Matters
+To understand why this is important, consider that, for example, 
+MapReduce programs run a map and optional reduce operation over data values to produce key->value pairs.
+Apache Pig creates tuples of data. And data stored in Hive is in table records, just like a relational database.
+So the three have different ways of storing data. So they are not so easy to use together.
+
+For example, an Apache Pig tuple can look like this:
+
+(1, {(1,2,3,4,5), (1,2,3,4,5)})
+
+MapReduce stores data in key->value pairs, like this:
+
+{
+name -> Walker Rowe,
+Position -> freelance technical writer
+}
+
+An Apache Hive table looks just like an RDBMS table created with a SQL command:
+
+COL_NAME	DATA_TYPE
+station	string
+station_name	string
+wdate	date
+prcp	float
+wind	float
+snow	float
