@@ -2,7 +2,10 @@ Lateral View Syntax
 lateralView: LATERAL VIEW udtf(expression) tableAlias AS columnAlias (',' columnAlias)*
 fromClause: FROM baseTable (lateralView)*
 Description
-Lateral view is used in conjunction with user-defined table generating functions such as explode(). As mentioned in Built-in Table-Generating Functions, a UDTF generates zero or more output rows for each input row. A lateral view first applies the UDTF to each row of base table and then joins resulting output rows to the input rows to form a virtual table having the supplied table alias.
+Lateral view is used in conjunction with user-defined table generating functions such as explode(). As mentioned in Built-in 
+Table-Generating Functions, a UDTF generates zero or more output rows for each input row. A lateral view first applies the UDTF to each 
+row of base table and then joins resulting output rows to the input rows to form a virtual table having the supplied table alias.
+
 ------------------------------------------------------------------------------------------------------------------
 
 Explode function displays each element of collection data type as single row.
