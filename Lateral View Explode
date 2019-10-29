@@ -1,0 +1,41 @@
+Lateral View Syntax
+lateralView: LATERAL VIEW udtf(expression) tableAlias AS columnAlias (',' columnAlias)*
+fromClause: FROM baseTable (lateralView)*
+Description
+Lateral view is used in conjunction with user-defined table generating functions such as explode(). As mentioned in Built-in Table-Generating Functions, a UDTF generates zero or more output rows for each input row. A lateral view first applies the UDTF to each row of base table and then joins resulting output rows to the input rows to form a virtual table having the supplied table alias.
+------------------------------------------------------------------------------------------------------------------
+
+Explode function displays each element of collection data type as single row.
+
+CREATE TABLE Products
+(id INT, ProductName STRING, ProductColorOptions ARRAY<STRING>);
+select * from products;
+1 Watches [“Red”,”Green”]
+
+2 Clothes [“Blue”,”Green”]
+
+3 Books [“Blue”,”Green”,”Red”]
+
+select explode(ProductColorOptions ) from products;
+Red
+
+Green
+
+But I want to join with other columns like id but that leads to an error.
+
+In that case, we need to use Lateral View.Lateral view creates a virtual table for exploded columns and make join with the base table.
+
+We need not to worry about the virtual table as it is done by hive internally.
+
+SELECT p.id,p.productname,colors.colorselection FROM default.products P
+LATERAL VIEW EXPLODE(p.productcoloroptions) colors as colorselection;
+1 Watches Red
+
+1 Watches Green
+
+2 Clothes Blue--
+
+------------------------------------
+### https://stackoverflow.com/questions/20667473/hive-explode-lateral-view-multiple-arrays
+### https://stackoverflow.com/questions/33993123/hive-lateral-view-with-sample-example-with-hive-table-having-1-column-as-array
+### https://www.ericlin.me/2013/09/how-to-use-hive-lateral-view-in-your-query/  
