@@ -1,10 +1,20 @@
 Hive-Metastore
-All Hive implementations need a metastore service, where it stores metadata. It is implemented using tables in a relational database. By default, Hive uses a built-in Derby SQL server. It provides single process storage, so when we use Derby, we cannot run instances of Hive CLI. Whenever we want to run Hive on a personal machine or for some developer task, then it is good, but when we want to use it in a cluster, then MySQL or any other similar relational database is required.
+All Hive implementations need a metastore service, where it stores metadata. It is implemented using tables in a relational database. By
+default, Hive uses a built-in Derby SQL server. It provides single process storage, so when we use Derby, we cannot run instances of Hive 
+CLI. Whenever we want to run Hive on a personal machine or for some developer task, then it is good, but when we want to use it in a 
+cluster, then MySQL or any other similar relational database is required.
 
-Now when you run your Hive query and you are using the default Derby database, you will find that your current directory now contains a new sub-directory, metastore_db. Also, the metastore will be created if it doesn’t already exist. The property of interest here is javax.jdo.option.ConnectionURL.
+Now when you run your Hive query and you are using the default Derby database, you will find that your current directory now contains a
+new sub-directory, metastore_db. Also, the metastore will be created if it doesn’t already exist. The property of interest here is 
+javax.jdo.option.ConnectionURL.
 
-The default value of this property is jdbc:derby:;databaseName=metastore_db;create=true. This value specifies that you will be using the embedded Derby as your Hive metastore, and the location of the metastore is metastore_db.
+The default value of this property is jdbc:derby:;databaseName=metastore_db;create=true. This value specifies that you will be using the 
+embedded Derby as your Hive metastore, and the location of the metastore is metastore_db.
 
-We can also configure the directory for the Hive to store table information. By default, the location of the warehouse is file:///user/hive/warehouse and we can also use the hive-site.xml file for the local or remote metastore.
+We can also configure the directory for the Hive to store table information. By default, the location of the warehouse is 
+file:///user/hive/warehouse and we can also use the hive-site.xml file for the local or remote metastore.
 
-We used hive-site.xml for changing the configuration to specify to Hive where the database is stored. We used a JDBC-compliant database for the metastore because the default embedded database is not suitable for production. For providing these configurations, we used the hive-site.xml file. 
+We used hive-site.xml for changing the configuration to specify to Hive where the database is stored. We used a JDBC-compliant database 
+for the metastore because the default embedded database is not suitable for production. For providing these configurations, we used the
+hive-site.xml file. 
+
