@@ -1,0 +1,12 @@
+WHY APACHE HIVE?
+Challenges with Previous Technologies
+Before Hive, there was MapReduce, a scalable, resilient distributed processing framework that enabled Google to index the exploding 
+volume of content on the web across large clusters of commodity servers.
+MapReduce provides batch analysis of massive volumes of semi-structured and unstructured data in Hadoop, but the MapReduce Java API is not
+easy to program with, especially for non-programmers.
+
+Advantages of Hive
+Hive was initially developed at Facebook to summarize, query, and analyze large amounts of data stored on a distributed file system. 
+Hive makes it easy for non-programmers to read, write, and manage large datasets residing in distributed Hadoop storage using HiveQL 
+SQL-like queries. Hive has gained a lot of popularity due to its ease of use and compatibility with existing business applications 
+through ODBC.
