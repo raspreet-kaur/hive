@@ -1,6 +1,10 @@
+HCatalog is a table storage management tool for Hadoop that exposes the tabular data of Hive metastore to other Hadoop applications.
+It enables users with different data processing tools (Pig, MapReduce) to easily write data onto a grid.
 HCatalog supports reading and writing files in any format for which a Hive SerDe (serializer-deserializer) can be written.
 By default, HCatalog supports RCFile, CSV, JSON, and SequenceFile formats. 
 To use a custom format, you must provide the InputFormat, OutputFormat, and SerDe.
+
+
 
 HCatalog is built on top of the Hive metastore and incorporates components from the Hive DDL.
 HCatalog provides read and write interfaces for Pig and MapReduce and uses Hive’s command line interface for issuing data definition
