@@ -1,0 +1,70 @@
+What is Hive Metastore?
+
+Metastore is the central repository of Apache Hive metadata.
+It stores metadata for Hive tables (like their schema and location) and partitions in a relational database.
+It provides client access to this information by using metastore service API.
+
+All Hive implementations need a metastore service, where it stores metadata.
+It is implemented using tables in a relational database. By default, Hive uses a built-in Derby SQL server. 
+It provides single process storage, so when we use Derby, we cannot run instances of Hive CLI.
+Whenever we want to run Hive on a personal machine or for some developer task, then it is good, but when we want to use it in a cluster,
+then MySQL or any other similar relational database is required.
+
+
+Hive metastore consists of two fundamental units:
+
+1. A service that provides metastore access to other Apache Hive services.
+2. Disk storage for the Hive metadata which is separate from HDFS storage.
+
+Hive Metastore Modes
+
+There are three modes for Hive Metastore deployment:
+• Embedded Metastore
+• Local Metastore
+• Remote Metastore
+
+1. Embedded Metastore
+
+In Hive by default, metastore service runs in the same JVM as the Hive service. 
+It uses embedded derby database stored on the local file system in this mode. 
+Thus both metastore service and hive service runs in the same JVM by using embedded Derby Database.
+But, this mode also has limitation that, as only one embedded Derby database can access the database files on disk at any one time,
+so only one Hive session could be open at a time.
+If we try to start the second session it produces an error when it attempts to open a connection to the metastore.
+So, to allow many services to connect the Metastore, it configures Derby as a network server. This mode is good for unit testing.
+But it is not good for the practical solutions.
+
+2. Local Metastore
+
+Hive is the data-warehousing framework, so hive does not prefer single session. To overcome this limitation of Embedded Metastore,
+for Local Metastore was introduced. This mode allows us to have many Hive sessions i.e. many users can use the metastore at the same
+time. We can achieve by using any JDBC compliant like MySQL which runs in a separate JVM or different machines than that of the Hive 
+service and metastore service which are running in the same JVM.
+
+Hive is the data-warehousing framework, so hive does not prefer single session. To overcome this limitation of Embedded Metastore, 
+for Local Metastore was introduced. This mode allows us to have many Hive sessions i.e. many users can use the metastore at the same
+time. We can achieve by using any JDBC compliant like MySQL which runs in a separate JVM or different machines than that of the 
+Hive service and metastore service which are running in the same JVM.
+
+
+3. Remote Metastore
+
+Moving further, another metastore configuration called Remote Metastore. In this mode, metastore runs on its own separate JVM,
+not in the Hive service JVM. If other processes want to communicate with the metastore server they can communicate using Thrift Network
+APIs. We can also have one more metastore servers in this case to provide more availability. This also brings better
+manageability/security because the database tier can be completely firewalled off. And the clients no longer need share database
+credentials with each Hiver user to access the metastore database.
+
+To use this remote metastore, you should configure Hive service by setting hive.metastore.uris to the metastore server URI(s).
+Metastore server URIs are of the form thrift://host:port, where the port corresponds to the one set by METASTORE_PORT when starting 
+the metastore server.
+
+
+Databases Supported by Hive
+
+Hive supports 5 backend databases which are as follows:
+• Derby
+• MySQL
+• MS SQL Server
+• Oracle
+• Postgres
